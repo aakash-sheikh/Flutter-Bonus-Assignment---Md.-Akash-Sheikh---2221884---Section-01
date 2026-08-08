@@ -24,10 +24,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Summer CSE464 class',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
         ),
-        home: HomePage(pageTitle: "Welcome to CSE464!"),
+        home: HomePage(pageTitle: "Welcome to AKASH ADDA!"),
       ),
     );
   }

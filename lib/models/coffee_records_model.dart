@@ -1,6 +1,3 @@
-// This model was generated using quicktype.io (https://quicktype.io)
-// and adapted for use with Firebase Firestore.
-
 class CoffeeRecordsModel {
   final int id;
   final String title;
@@ -32,5 +29,6 @@ class CoffeeRecordsModel {
     "des": des,
     "amount": amount,
     "date": date.toIso8601String(),
+    "doc_id": id.toString(),
   };
 }

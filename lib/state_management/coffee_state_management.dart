@@ -9,6 +9,9 @@ class CoffeeStateManagement with ChangeNotifier {
   final CollectionReference coffeeCollection =
       FirebaseFirestore.instance.collection('coffee_records');
 
+  final CollectionReference countCollection =
+      FirebaseFirestore.instance.collection('count_collection');
+
   void addData(){
     items.add(
       CoffeeRecordsModel(
@@ -48,8 +51,18 @@ class CoffeeStateManagement with ChangeNotifier {
     notifyListeners();
   }
 
+  void addOrderCount() async {
+    await countCollection.add({
+      "orderedAt": DateTime.now().toIso8601String(),
+    });
+    notifyListeners();
+  }
+
   Stream<List<CoffeeRecordsModel>> get coffeeRecordsStream {
-    return coffeeCollection.snapshots().map((snapshot) {
+    return coffeeCollection
+        .orderBy('date', descending: false)
+        .snapshots()
+        .map((snapshot) {
       return snapshot.docs.map((doc) {
         return CoffeeRecordsModel.fromJson(doc.data() as Map<String, dynamic>);
       }).toList();

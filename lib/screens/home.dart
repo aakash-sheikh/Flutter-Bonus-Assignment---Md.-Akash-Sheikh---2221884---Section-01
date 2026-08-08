@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:summer_iub_app/screens/coffee_records_live_screen.dart';
-import 'package:summer_iub_app/screens/coffe_records_screen.dart';
 import 'package:summer_iub_app/screens/create_coffee_record_screen.dart';
+import 'package:summer_iub_app/state_management/coffee_state_management.dart';
 import 'package:summer_iub_app/widgets/app_backgroud_design_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,15 +21,14 @@ class _HomePageState extends State<HomePage> {
   void incrememntCoffeeCount() {
     _coffeeCount++;
     setState((){});
+
+    final csm = Provider.of<CoffeeStateManagement>(context, listen: false);
+    csm.addOrderCount();
+
     print("Coffee Count: $_coffeeCount");
   }
 
-  void navigateToCoffeeRecordsScreen() {
-   Navigator.of(context)
-   .push(MaterialPageRoute(builder: (context) =>  CoffeRecordsScreen()));
-  }
-
-   void navigateToCreateCoffeeRecordScreen() {
+  void navigateToCreateCoffeeRecordScreen() {
    Navigator.of(context)
    .push(MaterialPageRoute(builder: (context) =>  CreateCoffeeRecordScreen()));
   }
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
 
                         IconButton.filled(
                           onPressed: (){
-                            navigateToCoffeeRecordsScreen();
+                            navigateToCoffeeRecordsLiveScreen();
                           },
                           style: IconButton.styleFrom(
                             backgroundColor: Colors.brown,
@@ -130,25 +130,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                           icon: Icon(
                             Icons.arrow_forward_ios,
-                            color: Colors.white,
-                            size: 30.00,
-                          ),
-                        ),
-
-                        SizedBox(width: 10.00),
-
-                        IconButton.filled(
-                          onPressed: (){
-                            navigateToCoffeeRecordsLiveScreen();
-                          },
-                          style: IconButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          icon: Icon(
-                            Icons.cloud_sync,
                             color: Colors.white,
                             size: 30.00,
                           ),
